@@ -28,6 +28,8 @@ while True:
                 game.move_left();
             elif event.key == pygame.K_RIGHT:
                 game.move_right();
+            elif event.key == pygame.K_SPACE:
+                game.rotate();
     # Drawing
 
     screen.fill(backgroundcolor);
