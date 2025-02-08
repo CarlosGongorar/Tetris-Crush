@@ -5,10 +5,14 @@ from colors import Colors
 
 pygame.init();
 
+logo = pygame.image.load("img/logo.png");
+pygame.display.set_icon(logo);
+
 title_font = pygame.Font(None, 40);
 score_surface = title_font.render("Score", True, Colors.white);
 next_surface = title_font.render("Next", True, Colors.white);
 game_over_surface = title_font.render("GAME OVER!", True, Colors.red);
+press_r_surface = title_font.render("Press R to restart", True, Colors.white);
 
 score_rect = pygame.Rect(370, 55, 170, 60);
 next_rect = pygame.Rect(370, 215, 170, 180);
@@ -58,6 +62,7 @@ while True:
 
     if game.game_over == True:
         screen.blit(game_over_surface, (365, 450, 50, 50));
+        screen.blit(press_r_surface, (340, 500, 100, 50));
 
     pygame.draw.rect(screen, Colors.details, score_rect, 0, 10);
     screen.blit(score_value_surface, score_value_surface.get_rect(centerx = score_rect.centerx, centery = score_rect.centery));
