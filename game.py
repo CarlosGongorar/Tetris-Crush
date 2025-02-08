@@ -9,6 +9,16 @@ class Game:
         self.current_block = self.get_random_block();
         self.next_block = self.get_random_block();
         self.game_over = False;
+        self.score = 0;
+    
+    def upadte_score(self, lines_cleared, move_down_points):
+        if lines_cleared == 1:
+            self.score += 100
+        elif lines_cleared == 2:
+            self.score += 300
+        elif lines_cleared == 3:
+            self.score += 500
+        self.score += move_down_points
     
     def get_random_block(self):
         if len(self.blocks) == 0:
@@ -35,9 +45,9 @@ class Game:
             self.lock_block();
     
     def rotate(self):
-        self.current_block.rotate()
+        self.current_block.rotate();
         if not (self.block_inside() and self.block_fits()):
-            self.current_block.undo_rotation()
+            self.current_block.undo_rotation();
     
     def lock_block(self):
         tiles = self.current_block.get_cell_positions()
@@ -45,12 +55,27 @@ class Game:
             self.grid.grid[pos.row][pos.column] = self.current_block.id
         self.current_block = self.next_block
         self.next_block = self.get_random_block()
-        self.grid.clear_full_rows()
-        
-        # Nuevo: Limpieza de coincidencias de 3 y aplicación de gravedad en cascada
-        while self.grid.clear_matches() > 0:
+        rows_cleared = self.grid.clear_full_rows()
+        self.upadte_score(rows_cleared, 0)
+
+        match_score = 0
+        while True:
+            blocks_cleared = self.grid.clear_matches()
+            if blocks_cleared == 0:
+                break
+            if blocks_cleared == 3:
+                match_score += 50
+            elif blocks_cleared == 4:
+                match_score += 150
+            elif blocks_cleared == 5:
+                match_score += 300
+            elif blocks_cleared >= 6:
+                match_score += 600
+
             self.grid.apply_gravity()
-        
+
+        self.score += match_score
+
         if self.block_fits() == False:
             self.game_over = True
     
@@ -73,6 +98,7 @@ class Game:
         self.blocks = [LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock()]
         self.current_block = self.get_random_block();
         self.next_block = self.get_random_block();
+        self.score = 0;
 
     def draw(self, screen):
         self.grid.draw(screen);

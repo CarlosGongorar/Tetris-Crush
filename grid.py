@@ -157,15 +157,17 @@ class Grid:
         return cleared
 
     def apply_gravity(self):
-        # Recorre cada columna para hacer caer los bloques
-        for col in range(self.num_cols):
-            for row in range(self.num_rows - 1, -1, -1):
-                if self.grid[row][col] == 0:
-                    for above in range(row - 1, -1, -1):
-                        if self.grid[above][col] != 0:
-                            self.grid[row][col] = self.grid[above][col]
-                            self.grid[above][col] = 0
-                            break
+        moved = True
+        while moved:
+            moved = False
+            # Recorremos desde la penúltima fila hasta la primera
+            for row in range(self.num_rows - 2, -1, -1):
+                for col in range(self.num_cols):
+                    if self.grid[row][col] != 0 and self.grid[row + 1][col] == 0:
+                        # Mover el bloque hacia abajo
+                        self.grid[row + 1][col] = self.grid[row][col]
+                        self.grid[row][col] = 0
+                        moved = True
     
     def draw(self, screen):
         for row in range(self.num_rows):
