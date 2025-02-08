@@ -1,12 +1,19 @@
 import pygame;
 import sys;
 from game import Game
+from colors import Colors
 
 pygame.init();
-backgroundcolor = (0, 14, 85);
 
-screen = pygame.display.set_mode((300, 600));
+title_font = pygame.Font(None, 40);
+score_surface = title_font.render("Score", True, Colors.white);
+next_surface = title_font.render("Next", True, Colors.white);
+game_over_surface = title_font.render("GAME OVER!", True, Colors.red);
 
+score_rect = pygame.Rect(370, 55, 170, 60);
+next_rect = pygame.Rect(370, 215, 170, 180);
+
+screen = pygame.display.set_mode((600, 600));
 pygame.display.set_caption("Tetris Crush");
 
 clock = pygame.time.Clock();
@@ -43,7 +50,15 @@ while True:
             game.move_down();
     # Drawing
 
-    screen.fill(backgroundcolor);
+    screen.fill(Colors.background_color);
+    screen.blit(score_surface, (415, 20, 70, 50));
+    screen.blit(next_surface, (420, 180, 70, 50));
+
+    if game.game_over == True:
+        screen.blit(game_over_surface, (365, 450, 50, 50));
+
+    pygame.draw.rect(screen, Colors.details, score_rect, 0, 10);
+    pygame.draw.rect(screen, Colors.details, next_rect, 0, 10);
     game.draw(screen);
 
     pygame.display.update();
