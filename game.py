@@ -40,14 +40,19 @@ class Game:
             self.current_block.undo_rotation();
     
     def lock_block(self):
-        tiles = self.current_block.get_cell_positions();
+        tiles = self.current_block.get_cell_positions()
         for pos in tiles:
             self.grid.grid[pos.row][pos.column] = self.current_block.id
         self.current_block = self.next_block
-        self.next_block = self.get_random_block();
-        self.grid.clear_full_rows();
+        self.next_block = self.get_random_block()
+        self.grid.clear_full_rows()
+        
+        # Nuevo: Limpieza de coincidencias de 3 y aplicación de gravedad en cascada
+        while self.grid.clear_matches() > 0:
+            self.grid.apply_gravity()
+        
         if self.block_fits() == False:
-            self.game_over = True;
+            self.game_over = True
     
     def block_fits(self):
         tiles = self.current_block.get_cell_positions();
