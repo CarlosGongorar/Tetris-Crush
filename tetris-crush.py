@@ -24,18 +24,22 @@ while True:
             sys.exit();
 
         if event.type == pygame.KEYDOWN:
+            if game.game_over == True:
+                if event.key == pygame.K_r and game.game_over == True:
+                    game.game_over = False
+                    game.reset();
             if event.key == pygame.K_UP:
                 pass
-            elif event.key == pygame.K_DOWN:
+            elif event.key == pygame.K_DOWN and game.game_over == False:
                 game.move_down();
-            elif event.key == pygame.K_LEFT:
+            elif event.key == pygame.K_LEFT and game.game_over == False:
                 game.move_left();
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_RIGHT and game.game_over == False:
                 game.move_right();
-            elif event.key == pygame.K_SPACE:
+            elif event.key == pygame.K_SPACE and game.game_over == False:
                 game.rotate();
 
-        if event.type == GAME_UPDATE:
+        if event.type == GAME_UPDATE and game.game_over == False:
             game.move_down();
     # Drawing
 
