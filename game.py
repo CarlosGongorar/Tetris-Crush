@@ -35,8 +35,8 @@ class Game:
             self.lock_block();
     
     def rotate(self):
-        self.current_block.rotate() or self.block_fits() == False;
-        if self.block_inside() == False:
+        self.current_block.rotate();
+        if self.block_inside() or self.block_fits() == False:
             self.current_block.undo_rotation();
     
     def lock_block(self):
@@ -46,8 +46,7 @@ class Game:
         self.current_block = self.next_block
         self.next_block = self.get_random_block()
         self.grid.clear_full_rows()
-        
-        # Nuevo: Limpieza de coincidencias de 3 y aplicación de gravedad en cascada
+
         while self.grid.clear_matches() > 0:
             self.grid.apply_gravity()
         

@@ -73,15 +73,15 @@ class Grid:
                         if count >= 6:
                             clear_all_flag = True
                         elif count == 5:
-                            colors_to_clear.add(color)
+                            colors_to_clear.add(color);
                         elif count == 4:
                             # Regla para 4 en línea horizontal: eliminar la fila completa
                             for c in range(self.num_cols):
-                                to_clear.add((row, c))
+                                to_clear.add((row, c));
                         elif count == 3:
                             # Regla para 3 en línea: eliminar solo la secuencia
                             for c in range(start_col, col):
-                                to_clear.add((row, c))
+                                to_clear.add((row, c));
                     count = 1
                     start_col = col
             # Procesar la última secuencia de la fila
@@ -90,13 +90,13 @@ class Grid:
                 if count >= 6:
                     clear_all_flag = True
                 elif count == 5:
-                    colors_to_clear.add(color)
+                    colors_to_clear.add(color);
                 elif count == 4:
                     for c in range(self.num_cols):
-                        to_clear.add((row, c))
+                        to_clear.add((row, c));
                 elif count == 3:
                     for c in range(start_col, self.num_cols):
-                        to_clear.add((row, c))
+                        to_clear.add((row, c));
 
         # Verificar coincidencias verticales
         for col in range(self.num_cols):
@@ -111,14 +111,14 @@ class Grid:
                         if count >= 6:
                             clear_all_flag = True
                         elif count == 5:
-                            colors_to_clear.add(color)
+                            colors_to_clear.add(color);
                         elif count == 4:
                             # Regla para 4 en línea vertical: eliminar la columna completa
                             for r in range(self.num_rows):
-                                to_clear.add((r, col))
+                                to_clear.add((r, col));
                         elif count == 3:
                             for r in range(start_row, row):
-                                to_clear.add((r, col))
+                                to_clear.add((r, col));
                     count = 1
                     start_row = row
             # Procesar la última secuencia de la columna
@@ -127,13 +127,13 @@ class Grid:
                 if count >= 6:
                     clear_all_flag = True
                 elif count == 5:
-                    colors_to_clear.add(color)
+                    colors_to_clear.add(color);
                 elif count == 4:
                     for r in range(self.num_rows):
-                        to_clear.add((r, col))
+                        to_clear.add((r, col));
                 elif count == 3:
                     for r in range(start_row, self.num_rows):
-                        to_clear.add((r, col))
+                        to_clear.add((r, col));
 
         # Regla 6: Si se formó un match de 6 o más, se limpia todo el tablero.
         if clear_all_flag:
@@ -147,10 +147,10 @@ class Grid:
         for row in range(self.num_rows):
             for col in range(self.num_cols):
                 if self.grid[row][col] in colors_to_clear:
-                    to_clear.add((row, col))
+                    to_clear.add((row, col));
 
         # Eliminar (poner a 0) todas las celdas marcadas
-        cleared = len(to_clear)
+        cleared = len(to_clear);
         for (row, col) in to_clear:
             self.grid[row][col] = 0
 
