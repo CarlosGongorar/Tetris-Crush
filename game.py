@@ -50,17 +50,17 @@ class Game:
             self.current_block.undo_rotation();
     
     def lock_block(self):
-        tiles = self.current_block.get_cell_positions()
+        tiles = self.current_block.get_cell_positions();
         for pos in tiles:
             self.grid.grid[pos.row][pos.column] = self.current_block.id
         self.current_block = self.next_block
-        self.next_block = self.get_random_block()
-        rows_cleared = self.grid.clear_full_rows()
-        self.upadte_score(rows_cleared, 0)
+        self.next_block = self.get_random_block();
+        rows_cleared = self.grid.clear_full_rows();
+        self.upadte_score(rows_cleared, 0);
 
         match_score = 0
         while True:
-            blocks_cleared = self.grid.clear_matches()
+            blocks_cleared = self.grid.clear_matches();
             if blocks_cleared == 0:
                 break
             if blocks_cleared == 3:
@@ -72,7 +72,7 @@ class Game:
             elif blocks_cleared >= 6:
                 match_score += 600
 
-            self.grid.apply_gravity()
+            self.grid.apply_gravity();
 
         self.score += match_score
 
@@ -102,4 +102,10 @@ class Game:
 
     def draw(self, screen):
         self.grid.draw(screen);
-        self.current_block.draw(screen);
+        self.current_block.draw(screen, 11, 11);
+        if self.next_block.id == 3:
+            self.next_block.draw(screen, 307, 290);
+        elif self.next_block.id == 4:
+            self.next_block.draw(screen, 307, 275);
+        else:
+            self.next_block.draw(screen, 320, 270);

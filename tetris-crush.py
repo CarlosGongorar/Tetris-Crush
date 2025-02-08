@@ -39,7 +39,7 @@ while True:
                 pass
             elif event.key == pygame.K_DOWN and game.game_over == False:
                 game.move_down();
-                game.upadte_score(0, 1)
+                game.upadte_score(0, 1);
             elif event.key == pygame.K_LEFT and game.game_over == False:
                 game.move_left();
             elif event.key == pygame.K_RIGHT and game.game_over == False:
